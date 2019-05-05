@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import { Route, Link } from 'react-router-dom';
+
+const Home = () => (<div>Home route</div>);
+const About = () => (<div>About route</div>);
+const User = () => (<div>User route</div>);
 
 class App extends Component {
 
-  componentDidMount() {
-    axios('socket/FETCHGAMELIST').then(res => console.error("RES1" , res));
-  }
-
   render() {
+    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Link to="/home">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/user">User</Link>
+
+        <Route path="/home" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/user" component={User} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = ( state , props ) => ({
+  testProps: state.test
+})
+
+export default connect(mapStateToProps)(App);
